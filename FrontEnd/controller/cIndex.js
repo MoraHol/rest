@@ -1,38 +1,45 @@
-document.getElementById('send').addEventListener("click", load);
-json = "";
+document.getElementById('frecuency').addEventListener("change", changePreferences);
+document.getElementById('market').addEventListener('change', changePreferences);
+document.getElementById('type-chart').addEventListener('change', changePreferences);
+var marketJson = "";
 
-function load() {
+function changePreferences() {
+    var market_selector= document.getElementById('market');
+    var typeChartSelector = document.getElementById('type-chart');
+    market = market_selector.options[market_selector.selectedIndex].value;
+    type_chart = typeChartSelector.options[typeChartSelector.selectedIndex].value;
+    document.getElementById('title').innerHTML = market;
+    document.getElementById('image-currency').setAttribute('src',marketJson.result[market_selector.selectedIndex].Market.LogoUrl);
+    market = market_selector.options[market_selector.selectedIndex].value;
+    var frecuency = document.getElementById("frecuency");
+    var pro = frecuency.options[frecuency.selectedIndex].value;
+    if (pro === 'oneMin' || pro === 'fiveMin' || pro === 'hour' || pro === 'day' || pro === 'thirtyMin') {
+        loadData(false, pro, 1, market,type_chart);
+    } else {
+        n = pro === 'tenMin' ? 2 : pro === 'fifteenMin' ? 3 : 1;
+        loadData(false, 'fiveMin', n, market,type_chart);
+    }
+}
+document.body.onload = function () {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            json = this.responseText;
-            document.getElementById('response').innerHTML = this.responseText;
-            json = JSON.parse(json);
-        };
-        xhttp.open("GET", "../BackEnd/cURL/curl.php", true);
-        xhttp.send();
-    }
+            marketJson = this.responseText;
+            marketJson = JSON.parse(marketJson);
+        }
+    };
+    xhttp.open("GET", "../BackEnd/cURL/curl_markets.php", false);
+    xhttp.send();
+    loadMarkets();
+    changePreferences();
 }
 
-
-// var data = [{
-//     // x: [],
-//     // y: [],
-//     x: ['2018-11-03 17:01:00'],
-//     y: [6337.001],
-//     type: 'scatter'
-// }];
-// Plotly.newPlot('plotly-usd-btc', data);
-
-// function updateChart() {
-//     load();
-//     data[0].x.push(json.result[0].TimeStamp);
-//     data[0].y.push(json.result[0].Last);
-//     Plotly.newPlot('plotly-usd-btc', data);
-// }
-// setInterval(updateChart, 10000);
-// updateChart();
-
-// function formatTimestamp(date){
-//     date = new Date(date);
-// }
+function loadMarkets() {
+    var selector = document.getElementById('market');
+    marketJson.result.forEach(market => {
+        m = document.createElement('option');
+        m.setAttribute('value', market.Summary.MarketName);
+        m.setAttribute('label', market.Summary.MarketName);
+        selector.appendChild(m);
+    });
+}

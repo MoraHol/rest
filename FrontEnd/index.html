@@ -2,21 +2,47 @@
 <html lang="en">
 
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/index_style.css">
     <title>Consumption od third-party services</title>
 </head>
 
 <body>
-    <h1>USD-BTC</h1>
+    <div class="container"> 
+        <h1 id="title"></h1>
+        <img id="image-currency" style="width: 45px; height: 45px;float: left;margin: auto 12px auto 0;">
+    </div>
+    <br>
+    <br>
+    <img src="loading-spin-white.svg" alt="cargando por espere" class="superponer" id='loading'>
+    <select id="type-chart">
+        <option value="candlestick">candle</option>
+        <option value="ohlc">bar</option>
+    </select>
+    <select name="frecuency" id="frecuency">
+        <option value="oneMin">1 min</option>
+        <option value="fiveMin">5 min</option>
+        <option value="tenMin">10 min</option>
+        <option value="fifteenMin">15 min</option>
+        <option value="thirtyMin">30 min</option>
+        <option value="hour">1 hour</option>
+        <option value="day">1 day</option>
+    </select>
+    <select id="market"></select>
     <div id="plotly-usd-btc"></div>
-    <button id="hola">assa</button>
-    <button id="send">send</button>
-    <div id="response"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
     <script src="controller/cIndex.js"></script>
-    <!-- <script src="controller/plotly.js"></script> -->
+    <script src="controller/plotly.js"></script>
 </body>
 
 </html>

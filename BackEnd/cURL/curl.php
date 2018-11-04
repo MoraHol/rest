@@ -1,6 +1,12 @@
 <?php
-$url='https://bittrex.com/api/v1.1/public/getmarketsummary?market=usd-btc';
-// $url = "https://international.bittrex.com/Api/v2.0/pub/market/GetLatestTick?marketName=USD-BTC&tickInterval=oneMin";
+$url = "";
+if($_GET["flag"] === 'true'){
+    $url = "https://international.bittrex.com/Api/v2.0/pub/market/GetLatestTick?marketName=".$_GET['market']."&tickInterval=".$_GET['frecuency'];
+}else{
+    $url = 'https://international.bittrex.com/Api/v2.0/pub/market/GetTicks?marketName='.$_GET['market'].'&tickInterval='.$_GET['frecuency'];
+}
+
+
 $handler = curl_init();
 curl_setopt($handler, CURLOPT_URL, $url);
 $response = curl_exec($handler);
