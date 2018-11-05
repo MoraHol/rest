@@ -1,6 +1,62 @@
-.superponer{
+.superponer {
     position: absolute;
-    top: 300px;
-    z-index: 3;
-    left: 400px;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+label{
+    color: white;
+}
+.caja {
+    background-color: #d9d9d9;
+    margin: 20px auto 40px auto;
+    border: 1px solid #d9d9d9;
+    height: 30px;
+    overflow: hidden;
+    width: 230px;
+    position: relative;
+}
+
+select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+}
+
+select:focus {
+    outline: none;
+}
+
+.caja::after {
+    content: "\025be";
+    display: table-cell;
+    padding-top: 7px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+    background-color: #d9d9d9;
+    position: absolute;
+    top: 0;
+    right: 0px;
+    pointer-events: none;
+}
+
+#header {
+    background-color: #2B2D39;
+    color: white;
+}
+
+body {
+    background-color: #303444;
+}
+
+#plotly {
+    background-color: #1C222C;
+    padding: 10px;
 }

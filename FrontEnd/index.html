@@ -13,28 +13,69 @@
 </head>
 
 <body>
-    <div class="container"> 
-        <h1 id="title"></h1>
-        <img id="image-currency" style="width: 45px; height: 45px;float: left;margin: auto 12px auto 0;">
+    <div class="container-fluid" id='header'>
+        <div class="row">
+            <div class="media col">
+                <img class="mr-3" id="image-currency" style="width: 45px; height: 45px;float: left;margin: auto 12px auto 0;">
+                <div class="media-body">
+                    <h6 id="title"></h6>
+                    <span id="currency1"></span>
+                </div>
+            </div>
+            <div class="col">
+                <span id="last"></span>
+                <p>LAST</p>
+            </div>
+            <div class="col">
+                <span id="bid"></span>
+                <p>BID</p>
+            </div>
+            <div class="col">
+                <span id="ask"></span>
+                <p>ASK</p>
+            </div>
+            <div class="col">
+                <span id="volume"></span>
+                <p>VOLUME</p>
+            </div>
+            <div class="col">
+                <span id="24-high"></span>
+                <p>24H HIGH</p>
+            </div>
+            <div class="col">
+                <span id="24-low"></span>
+                <p>24H LOW</p>
+            </div>
+        </div>
     </div>
-    <br>
-    <br>
-    <img src="loading-spin-white.svg" alt="cargando por espere" class="superponer" id='loading'>
-    <select id="type-chart">
-        <option value="candlestick">candle</option>
-        <option value="ohlc">bar</option>
-    </select>
-    <select name="frecuency" id="frecuency">
-        <option value="oneMin">1 min</option>
-        <option value="fiveMin">5 min</option>
-        <option value="tenMin">10 min</option>
-        <option value="fifteenMin">15 min</option>
-        <option value="thirtyMin">30 min</option>
-        <option value="hour">1 hour</option>
-        <option value="day">1 day</option>
-    </select>
-    <select id="market"></select>
-    <div id="plotly-usd-btc"></div>
+    <div class="container">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <label for="caja">type chart</label>
+            <select id="type-chart" class="caja">
+                <option value="candlestick">candle</option>
+                <option value="ohlc">bar</option>
+            </select>
+            <label for="frecuency">frecuency</label>
+            <select name="frecuency" id="frecuency" class="caja">
+                <option value="oneMin">1 min</option>
+                <option value="fiveMin">5 min</option>
+                <option value="tenMin">10 min</option>
+                <option value="fifteenMin">15 min</option>
+                <option value="thirtyMin">30 min</option>
+                <option value="hour">1 hour</option>
+                <option value="day">1 day</option>
+            </select>
+            <label for="market">Market</label>
+            <select id="market" class="caja">
+            </select>
+        </div>
+    </div>
+    <div class="container">
+        <div id="plotly">
+            <img src="loading-spin-white.svg" alt="cargando por espere" class="superponer" id='loading'>
+            <div id="plotly-usd-btc"></div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"

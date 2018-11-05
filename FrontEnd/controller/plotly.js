@@ -3,57 +3,18 @@ var frecuency_type = "";
 var n_type = "";
 var type_chart_plotly = "";
 var json = "";
-var trace1 = {
-    x: [],
-    close: [],
-    decreasing: {
-        line: {
-            color: '#AE3434'
-        }
-    },
-    high: [],
-    increasing: {
-        line: {
-            color: '#06A45B'
-        }
-    },
-    line: {
-        color: 'rgba(31,119,180,1)'
-    },
-    low: [],
-    open: [],
-    type: 'candlestick',
-    xaxis: 'x',
-    yaxis: 'y'
-};
+var market_index = "";
+var trace1 = {x: [],close: [],decreasing: {line: {color: '#AE3434'}},
+    high: [],increasing: {line: {color: '#06A45B'}},
+    line: {color: 'rgba(31,119,180,1)'},low: [],open: [],type: 'candlestick',
+    xaxis: 'x',yaxis: 'y'};
 
 var data = [trace1];
 
-var layout = {
-    dragmode: 'zoom',
-    margin: {
-        r: 30,
-        t: 25,
-        b: 40,
-        l: 60
-    },
-    showlegend: true,
-    xaxis: {
-        autorange: true,
-        domain: [0, 1],
-        range: ['2018-11-03 12:00', '2017-02-15 12:00'],
-        rangeslider: {
-            range: ['2018-11-03 12:00', '2017-02-15 12:00']
-        },
-        title: 'Date',
-        type: 'date'
-    },
-    yaxis: {
-        autorange: true,
-        domain: [0, 1],
-        range: [114.609999778, 137.430004222],
-        type: 'linear'
-    }
+var layout = {dragmode: 'zoom',margin: {r: 40,t: 25,b: 40,l: 60},showlegend: true,
+xaxis: {autorange: true,domain: [0, 1],range: ['2018-11-03 12:00', '2017-02-15 12:00'],
+rangeslider: {range: ['2018-11-03 12:00', '2017-02-15 12:00']},title: 'Date',type: 'date'},
+yaxis: {autorange: true,domain: [0, 1],range: [114.609999778, 137.440004222],type: 'linear'}
 };
 
 function empty() {
@@ -65,7 +26,6 @@ function empty() {
 }
 
 function loadData1(flag) {
-
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -80,7 +40,7 @@ function loadData1(flag) {
     xhttp.send();
 }
 
-function loadData(flag, frecuency, n, market,type_chart) {
+function loadData(flag, frecuency, n, market, type_chart) {
     frecuency_type = frecuency;
     n_type = n;
     market_type = market;
@@ -92,13 +52,13 @@ function loadData(flag, frecuency, n, market,type_chart) {
             json = this.responseText;
             json = JSON.parse(json);
             document.getElementById('loading').style.zIndex = "-1";
-            document.getElementById('plotly-usd-btc').style.filter="none";
+            document.getElementById('plotly-usd-btc').style.filter = "none";
             if (!flag) {
                 loadDataChart(n);
             }
-        }else{
+        } else {
             document.getElementById('loading').style.zIndex = "2";
-            document.getElementById('plotly-usd-btc').style.filter="blur(10px)";
+            document.getElementById('plotly-usd-btc').style.filter = "blur(10px)";
         }
     };
     xhttp.open("GET", "../BackEnd/cURL/curl.php?flag=" + flag + '&frecuency=' + frecuency + '&market=' + market, !flag);
@@ -108,10 +68,10 @@ function loadData(flag, frecuency, n, market,type_chart) {
 
 function pushData(datum) {
     trace1.x.push(new Date(datum.T + 'Z'));
-    trace1.close.push(datum.C);
-    trace1.high.push(datum.H);
-    trace1.low.push(datum.L);
-    trace1.open.push(datum.O);
+    trace1.close.push(parseFloat(datum.C).toFixed(8));
+    trace1.high.push(parseFloat(datum.H).toFixed(8));
+    trace1.low.push(parseFloat(datum.L).toFixed(8));
+    trace1.open.push(parseFloat(datum.O).toFixed(8));
     layout.xaxis.range[1] = new Date();
     layout.xaxis.rangeslider.range[1] = new Date();
 }
@@ -121,16 +81,22 @@ function updateChart() {
     time = new Date(json.result[0].T + 'Z');
     lastTime = new Date(trace1.x[trace1.x.length - 1]);
     if (time != lastTime) {
-        pushData(json.result[0]);
+        if (n_type != 1) {
+            if (d.getMinutes() % n * 5 == 0) {
+                pushData(json.result[0]);
+            } else {
+                pushData(json.result[0]);
+            }
+        }
         Plotly.react('plotly-usd-btc', data, layout);
     }
 }
 
 function loadDataChart(n = 1) {
     empty();
-    layout.xaxis.range[0] = new Date(json.result[json.result.length - 30 * n].T + 'Z');
-    layout.xaxis.rangeslider.range[0] = new Date(json.result[json.result.length - 30 * n].T + 'Z');
-    for (let index = json.result.length - (30 * n); index < json.result.length; index++) {
+    layout.xaxis.range[0] = new Date(json.result[json.result.length - 40 * n].T + 'Z');
+    layout.xaxis.rangeslider.range[0] = new Date(json.result[json.result.length - 40 * n].T + 'Z');
+    for (let index = json.result.length - (40 * n); index < json.result.length; index++) {
         var d = new Date(json.result[index].T + 'Z');
         if (n != 1) {
             if (d.getMinutes() % n * 5 == 0) {
