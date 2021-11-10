@@ -61,7 +61,7 @@ function loadData(flag, frecuency, n, market, type_chart) {
             document.getElementById('plotly-usd-btc').style.filter = "blur(10px)";
         }
     };
-    xhttp.open("GET", "https://app-devops-test.herokuapp.com/api/tokens?flag=" + flag + '&frecuency=' + frecuency + '&market=' + market, !flag);
+    xhttp.open("GET", "git status?flag=" + flag + '&frecuency=' + frecuency + '&market=' + market, !flag);
     xhttp.send();
 }
 
