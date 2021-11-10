@@ -36,7 +36,7 @@ function loadData1(flag) {
             }
         }
     };
-    xhttp.open("GET", "../BackEnd/cURL/curl.php?flag=" + flag + '&frecuency=' + frecuency_type + '&market=' + market_type, !flag);
+    xhttp.open("GET", "https://app-devops-test.herokuapp.com/api/tokens?flag=" + flag + '&frecuency=' + frecuency_type + '&market=' + market_type, !flag);
     xhttp.send();
 }
 
@@ -61,7 +61,7 @@ function loadData(flag, frecuency, n, market, type_chart) {
             document.getElementById('plotly-usd-btc').style.filter = "blur(10px)";
         }
     };
-    xhttp.open("GET", "../BackEnd/cURL/curl.php?flag=" + flag + '&frecuency=' + frecuency + '&market=' + market, !flag);
+    xhttp.open("GET", "https://app-devops-test.herokuapp.com/api/tokens?flag=" + flag + '&frecuency=' + frecuency + '&market=' + market, !flag);
     xhttp.send();
 }
 

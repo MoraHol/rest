@@ -39,7 +39,7 @@ function loadMarkets(flag = true){
             marketJson = JSON.parse(marketJson);
         }
     };
-    xhttp.open("GET", "../BackEnd/cURL/curl_markets.php", flag);
+    xhttp.open("GET", "https://app-devops-test.herokuapp.com/api/markets", flag);
     xhttp.send();
 }
 function updateDataCurrency() {
